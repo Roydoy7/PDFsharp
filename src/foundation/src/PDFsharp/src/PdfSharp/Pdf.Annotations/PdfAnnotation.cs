@@ -4,6 +4,7 @@
 using System;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf.Advanced;
+using PdfSharp.Pdf.Layers;
 
 namespace PdfSharp.Pdf.Annotations
 {
@@ -52,6 +53,26 @@ namespace PdfSharp.Pdf.Annotations
         {
             Parent.Remove(this);
         }
+
+        public virtual void SetLayer(PdfLayer layer)
+        {
+            Elements.SetReference(Keys.OC, layer.ReferenceNotNull);
+            _layer = layer;
+        }
+
+        public PdfLayer? Layer
+        {
+            get
+            {
+                if (_layer == null)
+                {
+                    _layer = (PdfLayer?)Elements.GetValue(Keys.OC, VCF.None);
+                }
+                return _layer;
+            }
+        }
+
+        PdfLayer? _layer;
 
         /// <summary>
         /// Gets or sets the annotation flags of this instance.
@@ -298,9 +319,9 @@ namespace PdfSharp.Pdf.Annotations
             /// (Optional; PDF 1.1) An array of three numbers in the range 0.0 to 1.0, representing
             /// the components of a color in the DeviceRGB color space. This color is used for the
             /// following purposes:
-            /// ï The background of the annotationís icon when closed
-            /// ï The title bar of the annotationís pop-up window
-            /// ï The border of a link annotation
+            /// ÅEThe background of the annotationís icon when closed
+            /// ÅEThe title bar of the annotationís pop-up window
+            /// ÅEThe border of a link annotation
             /// </summary>
             [KeyInfo("1.1", KeyType.Array | KeyType.Optional)]
             public const string C = "/C";
@@ -324,11 +345,16 @@ namespace PdfSharp.Pdf.Annotations
             // AA
             // StructParent
             // OC
+            /// <summary>
+            /// (Optional; PDF 1.5) A indirect reference to layer which this annotation is on.
+            /// </summary>
+            [KeyInfo("1.5", KeyType.Dictionary | KeyType.Optional, typeof(PdfLayer))]
+            public const string OC = "/OC";
 
             // ----- Excerpt of entries specific to markup annotations ----------------------------------
 
             /// <summary>
-            /// (Optional; PDF 1.1) The text label to be displayed in the title bar of the annotationís
+            /// (Optional; PDF 1.1) The text label to be displayed in the title bar of the annotation's
             /// pop-up window when open and active. By convention, this entry identifies
             /// the user who added the annotation.
             /// </summary>

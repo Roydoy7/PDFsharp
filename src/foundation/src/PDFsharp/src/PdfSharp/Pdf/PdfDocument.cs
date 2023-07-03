@@ -14,6 +14,7 @@ using PdfSharp.Pdf.Internal;
 using PdfSharp.Pdf.IO;
 using PdfSharp.Pdf.AcroForms;
 using PdfSharp.Pdf.Security;
+using PdfSharp.Pdf.Layers;
 // ReSharper disable InconsistentNaming
 
 // ReSharper disable ConvertPropertyToExpressionBody
@@ -597,6 +598,34 @@ namespace PdfSharp.Pdf
             => _pages ??= Catalog.Pages;
 
         PdfPages? _pages;  // Never changes if once created.
+
+        /// <summary>
+        /// Get the layers(OCG) dictionary.
+        /// </summary>
+        public PdfLayers Layers
+            => _layers ??= Catalog.Layers;
+        PdfLayers _layers;
+
+        public PdfLayer AddLayer(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException("name");
+
+            return AddLayer(new PdfLayer(name));
+        }
+
+        internal PdfLayer AddLayer(PdfLayer layer)
+        {
+            if (!CanModify)
+                throw new InvalidOperationException(PSSR.CannotModify);
+
+            if (Catalog.Layers == null)
+            {
+                Catalog.CreateLayers();
+            }
+
+            return Catalog.Layers.Add(layer);
+        }
 
         /// <summary>
         /// Gets or sets a value specifying the page layout to be used when the document is opened.

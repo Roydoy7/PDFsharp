@@ -93,6 +93,7 @@ namespace PdfSharp
         public static string PageIndexOutOfRange => "The index of a page is out of range.";
 
         public static string OutlineIndexOutOfRange => "The index of an outline is out of range.";
+        public static string LayerIndexOutOfRange => "The index of a layer is out of range.";
 
         public static string SetValueMustNotBeNull => "The set value property must not be null.";
 

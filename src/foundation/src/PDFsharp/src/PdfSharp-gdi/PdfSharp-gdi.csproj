@@ -283,6 +283,9 @@
         <Compile Include="..\PdfSharp\Pdf.IO\PdfReaderException.cs" Link="Pdf.IO\PdfReaderException.cs" />
         <Compile Include="..\PdfSharp\Pdf.IO\PdfWriter.cs" Link="Pdf.IO\PdfWriter.cs" />
         <Compile Include="..\PdfSharp\Pdf.IO\ShiftStack.cs" Link="Pdf.IO\ShiftStack.cs" />
+        <Compile Include="..\PdfSharp\Pdf.Layers\PdfLayer.cs" Link="Pdf.Layers\PdfLayer.cs" />
+        <Compile Include="..\PdfSharp\Pdf.Layers\PdfLayers.cs" Link="Pdf.Layers\PdfLayers.cs" />
+        <Compile Include="..\PdfSharp\Pdf.Layers\PdfLayerEntry.cs" Link="Pdf.Layers\PdfLayerEntry.cs" />
         <Compile Include="..\PdfSharp\Pdf.Security\Encryption\PdfEncryptionBase.cs" Link="Pdf.Security\Encryption\PdfEncryptionBase.cs" />
         <Compile Include="..\PdfSharp\Pdf.Security\Encryption\PdfEncryptionV1To4.cs" Link="Pdf.Security\Encryption\PdfEncryptionV1To4.cs" />
         <Compile Include="..\PdfSharp\Pdf.Security\Encryption\PdfEncryptionV5.cs" Link="Pdf.Security\Encryption\PdfEncryptionV5.cs" />

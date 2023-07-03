@@ -1,8 +1,9 @@
 // PDFsharp - A .NET library for processing PDF
 // See the LICENSE file in the solution root for more information.
 
-using PdfSharp.Pdf.IO;
 using PdfSharp.Pdf.AcroForms;
+using PdfSharp.Pdf.IO;
+using PdfSharp.Pdf.Layers;
 using PdfSharp.Pdf.Structure;
 
 namespace PdfSharp.Pdf.Advanced
@@ -76,6 +77,25 @@ namespace PdfSharp.Pdf.Advanced
             }
         }
         PdfPages? _pages;
+
+        public PdfLayers Layers
+        {
+            get
+            {
+                if (_layers == null)
+                {
+                    _layers = (PdfLayers?)Elements.GetValue(Keys.OCProperties, VCF.CreateIndirect) ?? NRT.ThrowOnNull<PdfLayers>();
+                }
+                return _layers;
+            }
+        }
+
+        PdfLayers? _layers;
+
+        internal void CreateLayers()
+        {
+            _layers = new PdfLayers(Owner);
+        }
 
         /// <summary>
         /// Implementation of PdfDocument.PageLayout.
@@ -158,7 +178,7 @@ namespace PdfSharp.Pdf.Advanced
             get
             {
                 if (_acroForm == null)
-                    _acroForm = (PdfAcroForm?)Elements.GetValue(Keys.AcroForm)??NRT.ThrowOnNull<PdfAcroForm>();
+                    _acroForm = (PdfAcroForm?)Elements.GetValue(Keys.AcroForm) ?? NRT.ThrowOnNull<PdfAcroForm>();
                 return _acroForm;
             }
         }
@@ -200,6 +220,10 @@ namespace PdfSharp.Pdf.Advanced
             // Clean up structure tree root.
             if (Elements.GetObject(Keys.StructTreeRoot) is PdfStructureTreeRoot str)
                 str.PrepareForSave();
+
+            // Layers
+            if (_layers != null)
+                _layers.PrepareForSave();
         }
 
         internal override void WriteObject(PdfWriter writer)
@@ -391,10 +415,10 @@ namespace PdfSharp.Pdf.Advanced
             public const string PieceInfo = "/PieceInfo";
 
             /// <summary>
-            /// (Optional; PDF 1.5; required if a document contains optional content) The document’s 
+            /// (Optional; PDF 1.5; required if a document contains optional content) The document's
             /// optional content properties dictionary.
             /// </summary>
-            [KeyInfo("1.5", KeyType.Dictionary | KeyType.Optional)]
+            [KeyInfo("1.5", KeyType.Dictionary | KeyType.Optional, typeof(PdfLayers))]
             public const string OCProperties = "/OCProperties";
 
             /// <summary>
