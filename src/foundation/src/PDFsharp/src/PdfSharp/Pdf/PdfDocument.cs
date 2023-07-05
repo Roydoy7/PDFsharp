@@ -604,7 +604,7 @@ namespace PdfSharp.Pdf
         /// </summary>
         public PdfLayers Layers
             => _layers ??= Catalog.Layers;
-        PdfLayers _layers;
+        PdfLayers? _layers;
 
         public PdfLayer AddLayer(string name)
         {
@@ -624,7 +624,7 @@ namespace PdfSharp.Pdf
                 Catalog.CreateLayers();
             }
 
-            return Catalog.Layers.Add(layer);
+            return Layers.Add(layer);
         }
 
         /// <summary>
