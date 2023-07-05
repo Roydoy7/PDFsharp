@@ -529,6 +529,19 @@ namespace PdfSharp.Pdf.IO
                 }
                 return _symbol = Symbol.UnicodeString;
             }
+
+            // UTF-8
+            if(_token is ['\xEF', '\xBB', '\xBF', ..])
+            {
+                // Combine two ANSI characters to get one Unicode character.
+                var length = _token.Length;
+                var b = new byte[length];
+                for (int i = 0; i < length; i++)
+                    b[i] = (byte)_token[i];
+                ClearToken();
+                _token.Append(Encoding.UTF8.GetString(b, 3, length - 3));
+                return _symbol = Symbol.UnicodeString;
+            }
             return _symbol = Symbol.String;
         }
 
