@@ -59,7 +59,7 @@ namespace PdfSharp.Pdf
         public PdfOutline(string title, PdfPage destinationPage, bool opened, PdfOutlineStyle style, XColor textColor)
         {
             Title = title;
-            DestinationPage = destinationPage;
+            _destinationPage = destinationPage;
             Opened = opened;
             Style = style;
             TextColor = textColor;
@@ -75,7 +75,7 @@ namespace PdfSharp.Pdf
         public PdfOutline(string title, PdfPage destinationPage, bool opened, PdfOutlineStyle style)
         {
             Title = title;
-            DestinationPage = destinationPage;
+            _destinationPage = destinationPage;
             Opened = opened;
             Style = style;
         }
@@ -89,7 +89,7 @@ namespace PdfSharp.Pdf
         public PdfOutline(string title, PdfPage destinationPage, bool opened)
         {
             Title = title;
-            DestinationPage = destinationPage;
+            _destinationPage = destinationPage;
             Opened = opened;
         }
 
@@ -101,7 +101,7 @@ namespace PdfSharp.Pdf
         public PdfOutline(string title, PdfPage destinationPage)
         {
             Title = title;
-            DestinationPage = destinationPage;
+            _destinationPage = destinationPage;
         }
 
         internal int Count
@@ -151,11 +151,11 @@ namespace PdfSharp.Pdf
         }
 
         /// <summary>
-        /// Gets or sets the destination page.
+        /// Gets or sets the destination page. 
         /// </summary>
         public PdfPage DestinationPage
         {
-            get => _destinationPage ?? NRT.ThrowOnNull<PdfPage>();
+            get => _destinationPage!; // ?? NRT.ThrowOnNull<PdfPage>(); Can be null
             set => _destinationPage = value;
         }
         PdfPage? _destinationPage;
@@ -378,7 +378,7 @@ namespace PdfSharp.Pdf
             if (destPage is not PdfPage page)
                 page = new PdfPage(destPage);
 
-            DestinationPage = page;
+            _destinationPage = page;
             if (destination.Elements[1] is PdfName type)
             {
                 PageDestinationType = (PdfPageDestinationType)Enum.Parse(typeof(PdfPageDestinationType), type.Value.Substring(1), true);
@@ -497,7 +497,7 @@ namespace PdfSharp.Pdf
                     Debug.Assert(index != -1);
 
                     // Has destination?
-                    if (DestinationPage != null)
+                    if (_destinationPage != null)
                         Elements[Keys.Dest] = CreateDestArray();
 
                     // Not the first element?
@@ -534,57 +534,59 @@ namespace PdfSharp.Pdf
             }
         }
 
-        PdfArray CreateDestArray()
+        PdfArray? CreateDestArray()
         {
             PdfArray? dest = null;
+            if (_destinationPage == null)
+                return dest;
             switch (PageDestinationType)
             {
                 // [page /XYZ left top zoom]
                 case PdfPageDestinationType.Xyz:
                     dest = new PdfArray(Owner,
-                        DestinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/XYZ {0} {1} {2}", Fd(Left), Fd(Top), Fd(Zoom))));
+                        _destinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/XYZ {0} {1} {2}", Fd(Left), Fd(Top), Fd(Zoom))));
                     break;
 
                 // [page /Fit]
                 case PdfPageDestinationType.Fit:
                     dest = new PdfArray(Owner,
-                        DestinationPage.ReferenceNotNull, new PdfLiteral("/Fit"));
+                        _destinationPage.ReferenceNotNull, new PdfLiteral("/Fit"));
                     break;
 
                 // [page /FitH top]
                 case PdfPageDestinationType.FitH:
                     dest = new PdfArray(Owner,
-                        DestinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitH {0}", Fd(Top))));
+                        _destinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitH {0}", Fd(Top))));
                     break;
 
                 // [page /FitV left]
                 case PdfPageDestinationType.FitV:
                     dest = new PdfArray(Owner,
-                        DestinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitV {0}", Fd(Left))));
+                        _destinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitV {0}", Fd(Left))));
                     break;
 
                 // [page /FitR left bottom right top]
                 case PdfPageDestinationType.FitR:
                     dest = new PdfArray(Owner,
-                        DestinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitR {0} {1} {2} {3}", Fd(Left), Fd(Bottom), Fd(Right), Fd(Top))));
+                        _destinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitR {0} {1} {2} {3}", Fd(Left), Fd(Bottom), Fd(Right), Fd(Top))));
                     break;
 
                 // [page /FitB]
                 case PdfPageDestinationType.FitB:
                     dest = new PdfArray(Owner,
-                        DestinationPage.ReferenceNotNull, new PdfLiteral("/FitB"));
+                        _destinationPage.ReferenceNotNull, new PdfLiteral("/FitB"));
                     break;
 
                 // [page /FitBH top]
                 case PdfPageDestinationType.FitBH:
                     dest = new PdfArray(Owner,
-                        DestinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitBH {0}", Fd(Top))));
+                        _destinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitBH {0}", Fd(Top))));
                     break;
 
                 // [page /FitBV left]
                 case PdfPageDestinationType.FitBV:
                     dest = new PdfArray(Owner,
-                        DestinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitBV {0}", Fd(Left))));
+                        _destinationPage.ReferenceNotNull, new PdfLiteral(String.Format("/FitBV {0}", Fd(Left))));
                     break;
 
                 default:
