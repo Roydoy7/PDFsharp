@@ -17,7 +17,11 @@ namespace PdfSharp.Snippets.Font
     {
         public FontResolverInfo? ResolveTypeface(string familyName, bool isBold, bool isItalic)
         {
+#if NETSTANDARD
+            familyName = familyName.Replace("UI", "WP");
+#else
             familyName = familyName.Replace("UI", "WP", StringComparison.OrdinalIgnoreCase);
+#endif
             var info = _segoeWpFontResolver.ResolveTypeface(familyName, isBold, isItalic)
                       ?? _segoeWpFontResolver.ResolveTypeface(SegoeWpFontResolver.FamilyNames.SegoeWP, isBold, isItalic);
 

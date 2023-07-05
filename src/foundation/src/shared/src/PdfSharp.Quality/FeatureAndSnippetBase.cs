@@ -7,8 +7,10 @@ using System.IO;
 //using Windows.Foundation;
 //using Windows.Storage;
 //#endif
+#if NETCOREAPP
 #if CORE || GDI
 using System.Drawing.Imaging;
+#endif
 #endif
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;

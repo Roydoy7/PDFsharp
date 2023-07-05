@@ -22,7 +22,12 @@ namespace PdfSharp.Fonts.OpenType
         /// <summary>
         /// Tries to get fontface by its key.
         /// </summary>
-        public static bool TryGetFontface(string key, [MaybeNullWhen(false)] out OpenTypeFontface fontface)
+        public static bool TryGetFontface(
+            string key,
+#if NETCOREAPP
+            [MaybeNullWhen(false)] 
+#endif        
+            out OpenTypeFontface fontface)
         {
             try
             {
@@ -36,7 +41,12 @@ namespace PdfSharp.Fonts.OpenType
         /// <summary>
         /// Tries to get fontface by its check sum.
         /// </summary>
-        public static bool TryGetFontface(ulong checkSum, [MaybeNullWhen(false)] out OpenTypeFontface fontface)
+        public static bool TryGetFontface(
+            ulong checkSum,
+#if NETCOREAPP
+            [MaybeNullWhen(false)] 
+#endif        
+            out OpenTypeFontface fontface)
         {
             try
             {

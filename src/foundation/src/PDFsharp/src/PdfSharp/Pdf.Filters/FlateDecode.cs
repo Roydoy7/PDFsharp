@@ -36,6 +36,20 @@ namespace PdfSharp.Pdf.Filters
 
 #if NET_ZIP
             CompressionLevel level;
+#if NETSTANDARD
+            switch (mode)
+            {
+                case PdfFlateEncodeMode.BestCompression:
+                    level = CompressionLevel.Optimal;
+                    break;
+                case PdfFlateEncodeMode.BestSpeed:
+                    level = CompressionLevel.Fastest;
+                    break;
+                default:
+                    level = CompressionLevel.NoCompression;
+                    break;
+            }
+#else
             switch (mode)
             {
                 case PdfFlateEncodeMode.BestCompression:
@@ -48,7 +62,7 @@ namespace PdfSharp.Pdf.Filters
                     level = CompressionLevel.Optimal;
                     break;
             }
-
+#endif
             // This is the header SharpZipLib produced previously.
             // See http://connect.microsoft.com/VisualStudio/feedback/ViewFeedback.aspx?FeedbackID=97064
             // 

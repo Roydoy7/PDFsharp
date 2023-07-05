@@ -86,7 +86,7 @@ namespace PdfSharp.Pdf.Security
                 lengthValue /= 8;
             Elements.SetInteger(Keys.Length, lengthValue);
         }
-        
+
         static void CheckLength(CryptFilterMethod method, int lengthValue)
         {
             switch (method)
@@ -152,7 +152,7 @@ namespace PdfSharp.Pdf.Security
             // - Version 5 => Revision 6 => Method AESV3
             // For that reason there should be no problem in using the PdfEncryptionBase instance of the security handler instead of a own instance.
             // If the crypt filter really needs its own PdfEncryptionBase instance, it had to be made independent of the security handler.
-            
+
             switch (_cryptFilterMethod)
             {
                 case CryptFilterMethod.None:
@@ -187,7 +187,7 @@ namespace PdfSharp.Pdf.Security
         internal override bool DecryptForEnteredObject(ref byte[] bytes)
         {
             // Pendant to EncryptForEnteredObject().
-            
+
             switch (_cryptFilterMethod)
             {
                 case CryptFilterMethod.None:
@@ -218,15 +218,24 @@ namespace PdfSharp.Pdf.Security
         void SetCryptFilterMethod(CryptFilterMethod cryptFilterMethod)
         {
             _cryptFilterMethod = cryptFilterMethod;
+#if NETSTANDARD
+            Elements.SetName(Keys.CFM, cryptFilterMethod.ToString("g") ?? throw TH.InvalidOperationException_InvalidCryptFilterMethod());
+#else
             Elements.SetName(Keys.CFM, Enum.GetName(cryptFilterMethod) ?? throw TH.InvalidOperationException_InvalidCryptFilterMethod());
+#endif
         }
 
         CryptFilterMethod GetCryptFilterMethod()
         {
+#if NETSTANDARD
+            if (Enum.TryParse<CryptFilterMethod>(PdfName.RemoveSlash(Elements.GetName(Keys.CFM)), out var cryptFilterMethod))
+                _cryptFilterMethod = cryptFilterMethod;
+#else
             _cryptFilterMethod ??= Enum.Parse<CryptFilterMethod>(PdfName.RemoveSlash(Elements.GetName(Keys.CFM)));
+#endif
             return _cryptFilterMethod ?? CryptFilterMethod.None;
         }
-        
+
         CryptFilterMethod? _cryptFilterMethod;
         PdfEncryptionBase? _encryption;
         PdfEncryptionV1To4? _encryptionV1To4;

@@ -463,7 +463,11 @@ namespace PdfSharp.Pdf
             /// <summary>
             /// Tries to get the string. TODO: more TryGet...
             /// </summary>
-            public bool TryGetString(string key, [MaybeNullWhen(false)] out string value)
+            public bool TryGetString(string key,
+#if NETCOREAPP
+                [MaybeNullWhen(false)] 
+#endif
+            out string value)
             {
                 value = null;
                 var obj = this[key];

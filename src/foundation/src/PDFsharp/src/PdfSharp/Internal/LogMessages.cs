@@ -13,13 +13,13 @@ namespace PdfSharp.Internal
         /// <summary>
         /// The ARGB value 0 is treated as the empty color.
         /// </summary>
-        [LoggerMessage(
-            //EventId = 42,
-            Message = "Could not open socket to `{hostName}`")]
-        public static partial void SomeTest(
-            this ILogger logger,
-            LogLevel level,
-            string hostName);
+        //[LoggerMessage(
+        //    //EventId = 42,
+        //    Message = "Could not open socket to `{hostName}`")]
+        //public static partial void SomeTest(
+        //    this ILogger logger,
+        //    LogLevel level,
+        //    string hostName);
 
 
         // What to log?

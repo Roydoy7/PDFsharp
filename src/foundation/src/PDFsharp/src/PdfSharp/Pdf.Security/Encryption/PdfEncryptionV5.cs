@@ -1,13 +1,13 @@
 ﻿// PDFsharp - A .NET library for processing PDF
 // See the LICENSE file in the solution root for more information.
 
-using System.Numerics;
-using PdfSharp.Pdf.IO;
-using System.Security.Cryptography;
-using System.Text;
 using PdfSharp.Internal;
 using PdfSharp.Pdf.Advanced;
 using PdfSharp.Pdf.Internal;
+using PdfSharp.Pdf.IO;
+using System.Numerics;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PdfSharp.Pdf.Security.Encryption
 {
@@ -233,7 +233,12 @@ namespace PdfSharp.Pdf.Security.Encryption
         void CreateAndStoreEncryptionKey()
         {
             // The file encryption key shall be a 256-bit (32-byte) value generated with a strong random number generator.
+#if NETSTANDARD
+            _encryptionKey = new byte[32];
+            RandomNumberGenerator.Create().GetBytes(_encryptionKey);
+#else
             _encryptionKey = RandomNumberGenerator.GetBytes(32);
+#endif
         }
 
         /// <summary>
@@ -272,8 +277,15 @@ namespace PdfSharp.Pdf.Security.Encryption
         (byte[] UserValue, byte[] UserEValue) ComputeUserValues(byte[] utf8InputPassword)
         {
             // a) Generate random bytes for user validation salt and user key salt.
+#if NETSTANDARD
+            var validationSalt = new byte[8];
+            var keySalt = new byte[8];
+            RandomNumberGenerator.Create().GetBytes(validationSalt);
+            RandomNumberGenerator.Create().GetBytes(keySalt);
+#else
             var validationSalt = RandomNumberGenerator.GetBytes(8);
             var keySalt = RandomNumberGenerator.GetBytes(8);
+#endif
 
             // Compute the hash with an input string consisting of the UTF-8 password concatenated with the user validation salt.
             // The string consisting of the hash followed by the user validation salt followed by the user key salt is stored as userValue.
@@ -302,8 +314,15 @@ namespace PdfSharp.Pdf.Security.Encryption
         (byte[] OwnerValue, byte[] OwnerEValue) ComputeOwnerValues(byte[] utf8InputPassword, byte[] userValue)
         {
             // a) Generate random bytes for owner validation salt and owner key salt.
+#if NETSTANDARD
+            var validationSalt = new byte[8];
+            var keySalt = new byte[8];
+            RandomNumberGenerator.Create().GetBytes(validationSalt);
+            RandomNumberGenerator.Create().GetBytes(keySalt);
+#else
             var validationSalt = RandomNumberGenerator.GetBytes(8);
             var keySalt = RandomNumberGenerator.GetBytes(8);
+#endif
 
             // Compute the hash with an input string consisting of the UTF-8 password concatenated with
             // the owner validation salt and the userValue.
@@ -353,7 +372,11 @@ namespace PdfSharp.Pdf.Security.Encryption
             var input = password.Concat(salt);
             if (computeOwnerHash)
                 input = input.Concat(userValue!); // Shall not be null, if computeOwnerHash is true.
+#if NETSTANDARD
+            var k = SHA256.Create().ComputeHash(input.ToArray());
+#else
             var k = SHA256.HashData(input.ToArray());
+#endif
 
             var lastByteOfE = new byte();
 
@@ -383,16 +406,33 @@ namespace PdfSharp.Pdf.Security.Encryption
 
                 // c) + d): Take the first 16 bytes of e as an unsigned big-endian integer.
                 var e16 = e[..16];
+#if NETSTANDARD
+                var e16r = new Byte[16];
+                Array.Copy(e16, e16r, 16);
+                Array.Reverse(e16r);
+                var e16BigEndianUnsigned = new BigInteger(e16r);
+#else
                 var e16BigEndianUnsigned = new BigInteger(e16, true, true);
+#endif
                 // Calculate the remainder of the result by modulo 3
                 // and according to that result choose the SHA algorithm to calculate the new k from e.
                 BigInteger.DivRem(e16BigEndianUnsigned, 3, out var remainder);
+
+#if NETSTANDARD
+                if (remainder == 0)
+                    k = SHA256.Create().ComputeHash(e);
+                else if (remainder == 1)
+                    k = SHA384.Create().ComputeHash(e);
+                else if (remainder == 2)
+                    k = SHA512.Create().ComputeHash(e);
+#else
                 if (remainder == 0)
                     k = SHA256.HashData(e);
                 else if (remainder == 1)
                     k = SHA384.HashData(e);
                 else if (remainder == 2)
                     k = SHA512.HashData(e);
+#endif
 
                 lastByteOfE = e.Last();
             }
@@ -430,7 +470,12 @@ namespace PdfSharp.Pdf.Security.Encryption
             perms[11] = (byte)'b';
 
             // e) Set bytes 12-15 to 4 bytes of random data, which will be ignored.
+#if NETSTANDARD
+            var randomData = new byte[4];
+            RandomNumberGenerator.Create().GetBytes(randomData);
+#else
             var randomData = RandomNumberGenerator.GetBytes(4);
+#endif
             Array.Copy(randomData, 0, perms, 12, randomData.Length);
 
             // f) Encrypt the block using AES-256 in ECB mode with an initialization vector of zero, using the file encryption key as the key.
@@ -635,7 +680,11 @@ namespace PdfSharp.Pdf.Security.Encryption
                 return false;
 
             // Bytes 0-3 of the decrypted Perms entry, treated as a little-endian integer, are the user permissions. They should match the value in the P key.
+#if NETSTANDARD
+            var pFromPerms = BitConverter.ToUInt32(permsDecrypted[..4], 0); // Little-endian is default, so we don't have to change the order.
+#else
             var pFromPerms = BitConverter.ToUInt32(permsDecrypted[..4]); // Little-endian is default, so we don't have to change the order.
+#endif
             if (pFromPerms != pValue)
                 return false;
 
