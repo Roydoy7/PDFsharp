@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0-windows7</TargetFramework>
+        <TargetFramework>net7.0-windows</TargetFramework>
         <RootNamespace>MigraDoc.GrammarByExample_WPF</RootNamespace>
         <EnableWindowsTargeting>true</EnableWindowsTargeting>
         <IsPackable>false</IsPackable>

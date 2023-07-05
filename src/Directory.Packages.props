@@ -3,10 +3,10 @@
     <!--<Import Condition="Exists('Local.Packages.props')" Project="$([MSBuild]::GetPathOfFileAbove('Local.Packages.props', '$(MSBuildThisFileDirectory)'))" />-->
 
     <PropertyGroup>
-        <NetCore_PackageVersion>6.0.0</NetCore_PackageVersion>
-        <AspNetCore_PackageVersion>6.0.0</AspNetCore_PackageVersion>
-        <AspNetCore_SignalR_PackageVersion>6.0.0</AspNetCore_SignalR_PackageVersion>
-        <EfCore_PackageVersion>6.0.0</EfCore_PackageVersion>
+        <NetCore_PackageVersion>7.0.0</NetCore_PackageVersion>
+        <AspNetCore_PackageVersion>7.0.0</AspNetCore_PackageVersion>
+        <AspNetCore_SignalR_PackageVersion>7.0.0</AspNetCore_SignalR_PackageVersion>
+        <EfCore_PackageVersion>7.0.0</EfCore_PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>

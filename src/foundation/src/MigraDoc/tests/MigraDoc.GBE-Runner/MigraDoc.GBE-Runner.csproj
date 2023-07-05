@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>MigraDoc.GBE_Runner</RootNamespace>
     <StartupObject>MigraDoc.GBE_Runner.Program</StartupObject>
   </PropertyGroup>
