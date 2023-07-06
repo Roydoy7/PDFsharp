@@ -108,10 +108,10 @@ namespace PdfSharp.Pdf.Layers
 
         PdfArray? _layersArray;
 
-        internal PdfLayerEntry LayerOrder
-            => _layerOrder ??= (PdfLayerEntry?)Elements.GetValue(Keys.D, VCF.Create) ?? NRT.ThrowOnNull<PdfLayerEntry>();
+        internal PdfLayerConfig LayerOrder
+            => _layerOrder ??= (PdfLayerConfig?)Elements.GetValue(Keys.D, VCF.Create) ?? NRT.ThrowOnNull<PdfLayerConfig>();
 
-        PdfLayerEntry? _layerOrder;
+        PdfLayerConfig? _layerOrder;
 
         internal override void PrepareForSave()
         {
@@ -172,12 +172,15 @@ namespace PdfSharp.Pdf.Layers
         internal class Keys : KeysBase
         {
             /// <summary>
-            /// 
+            /// (Required) The default viewing optional content configuration dictionary.
+            /// PdfRef1.7 P.375
             /// </summary>
-            [KeyInfo(KeyType.Dictionary | KeyType.Required, typeof(PdfLayerEntry))]
+            [KeyInfo(KeyType.Dictionary | KeyType.Required, typeof(PdfLayerConfig))]
             public const string D = "/D";
             /// <summary>
-            /// 
+            /// (Required) An array of indirect references to all the optional content groups in the document,
+            /// in any order.
+            /// PdfRef1.7 P.375
             /// </summary>
             [KeyInfo(KeyType.Array | KeyType.Required)]
             public const string OCGs = "/OCGs";

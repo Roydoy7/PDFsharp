@@ -3,13 +3,13 @@
     /// <summary>
     /// Represents the /D dictionary entry under OCProperties.
     /// </summary>
-    internal class PdfLayerEntry : PdfDictionary
+    internal class PdfLayerConfig : PdfDictionary
     {
-        internal PdfLayerEntry(PdfDocument document)
+        internal PdfLayerConfig(PdfDocument document)
             : base(document)
         { }
 
-        internal PdfLayerEntry(PdfDictionary dict)
+        internal PdfLayerConfig(PdfDictionary dict)
             : base(dict)
         { }
 
@@ -31,21 +31,30 @@
         internal class Keys : KeysBase
         {
             /// <summary>
-            /// Layers' order array.
+            /// (Optional) An array specifying the recommended order for presentation of
+            /// optional content groups in a user interface.
+            /// PdfRef1.7 P.377
             /// </summary>
-            [KeyInfo(KeyType.Array | KeyType.Required)]
+            [KeyInfo(KeyType.Array | KeyType.Optional)]
             public const string Order = "/Order";
 
             /// <summary>
-            /// Invisible layers' array.
+            /// (Optional) An array of optional content groups whose state should be set to
+            /// ON when this configuration is applied.
+            /// PdfRef1.7 P.376
             /// </summary>
-            [KeyInfo(KeyType.Array | KeyType.Required)]
+            [KeyInfo(KeyType.Array | KeyType.Optional)]
             public const string OFF = "/OFF";
 
             /// <summary>
-            /// Locked layers' array.
+            /// (Optional; PDF 1.6) An array of optional content groups that should be
+            /// locked when this configuration is applied.The state of a locked group cannot
+            /// be changed through the user interface of a viewer application.Producers can
+            /// use this entry to prevent the visibility of content that depends on these
+            /// groups from being changed by users.
+            /// PdfRef1.7 P.378
             /// </summary>
-            [KeyInfo(KeyType.Array | KeyType.Required)]
+            [KeyInfo(KeyType.Array | KeyType.Optional)]
             public const string Locked = "/Locked";
 
             /// <summary>
