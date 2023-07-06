@@ -8,7 +8,7 @@ namespace PdfSharp.Pdf.Advanced
     /// <summary>
     /// Base class for all dictionaries that map resource names to objects.
     /// </summary>
-    class PdfResourceMap : PdfDictionary //, IEnumerable
+    public class PdfResourceMap : PdfDictionary //, IEnumerable
     {
         public PdfResourceMap()
         { }

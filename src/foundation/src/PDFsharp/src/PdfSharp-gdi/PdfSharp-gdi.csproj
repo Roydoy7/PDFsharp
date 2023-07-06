@@ -230,7 +230,8 @@
         <Compile Include="..\PdfSharp\Pdf.Advanced\PdfTrueTypeFont.cs" Link="Pdf.Advanced\PdfTrueTypeFont.cs" />
         <Compile Include="..\PdfSharp\Pdf.Advanced\PdfType0Font.cs" Link="Pdf.Advanced\PdfType0Font.cs" />
         <Compile Include="..\PdfSharp\Pdf.Advanced\PdfType1Font.cs" Link="Pdf.Advanced\PdfType1Font.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Advanced\PdfXObject.cs" Link="Pdf.Advanced\PdfXObject.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Advanced\PdfXObject.cs" Link="Pdf.Advanced\PdfXObject.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Advanced\PdfProperties.cs" Link="Pdf.Advanced\PdfProperties.cs" />
         <Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfAnnotationFlags.cs" Link="Pdf.Annotations\enums\PdfAnnotationFlags.cs" />
         <Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfRubberStampAnnotationIcon.cs" Link="Pdf.Annotations\enums\PdfRubberStampAnnotationIcon.cs" />
         <Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfTextAnnotationIcon.cs" Link="Pdf.Annotations\enums\PdfTextAnnotationIcon.cs" />

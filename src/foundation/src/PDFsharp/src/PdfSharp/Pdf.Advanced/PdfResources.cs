@@ -180,11 +180,10 @@ namespace PdfSharp.Pdf.Advanced
         internal PdfResourceMap Shadings => _shadings ??= (PdfResourceMap?)Elements.GetValue(Keys.Shading, VCF.Create) ?? NRT.ThrowOnNull<PdfResourceMap>();
 
         PdfResourceMap? _shadings;
+        
+        public PdfProperties Properties => _properties ??= (PdfProperties?)Elements.GetValue(Keys.Properties, VCF.Create) ?? NRT.ThrowOnNull<PdfProperties>();
 
-        // TODO: make own class
-        internal PdfResourceMap Properties => _properties ??= (PdfResourceMap?)Elements.GetValue(Keys.Properties, VCF.Create) ?? NRT.ThrowOnNull<PdfResourceMap>();
-
-        PdfResourceMap? _properties;
+        PdfProperties? _properties;
 
         /// <summary>
         /// Gets a new local name for this resource.
@@ -379,8 +378,9 @@ namespace PdfSharp.Pdf.Advanced
             /// <summary>
             /// (Optional; PDF 1.2) A dictionary that maps resource names to property list
             /// dictionaries for marked content.
+            /// PdfRef1.7 P.154
             /// </summary>
-            [KeyInfo(KeyType.Dictionary | KeyType.Optional, typeof(PdfResourceMap))]
+            [KeyInfo(KeyType.Dictionary | KeyType.Optional, typeof(PdfProperties))]
             public const string Properties = "/Properties";
 
             /// <summary>
