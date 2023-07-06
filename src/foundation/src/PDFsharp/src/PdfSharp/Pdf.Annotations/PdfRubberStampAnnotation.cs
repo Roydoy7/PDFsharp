@@ -29,6 +29,13 @@ namespace PdfSharp.Pdf.Annotations
             Initialize();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PdfRubberStampAnnotation"/> class.
+        /// </summary>
+        /// <param name="dict"></param>
+        public PdfRubberStampAnnotation(PdfDictionary dict) : base(dict)
+        { }
+
         void Initialize()
         {
             Elements.SetName(Keys.Subtype, "/Stamp");

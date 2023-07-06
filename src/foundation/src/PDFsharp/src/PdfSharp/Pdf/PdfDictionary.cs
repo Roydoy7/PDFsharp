@@ -1066,6 +1066,14 @@ namespace PdfSharp.Pdf
                 => GetObject(key) as PdfArray;
 
             /// <summary>
+            /// Set a PdfArray with a specified key.
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="array"></param>
+            public void SetArray(string key, PdfArray array)
+                => _elements[key] = array;
+
+            /// <summary>
             /// Gets the PdfReference with the specified key, or null if no such object exists.
             /// </summary>
             public PdfReference? GetReference(string key)

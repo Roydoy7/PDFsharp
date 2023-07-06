@@ -2,8 +2,8 @@
 // See the LICENSE file in the solution root for more information.
 
 using PdfSharp.Pdf.Actions;
-using PdfSharp.Pdf.IO;
 using PdfSharp.Pdf.Internal;
+using PdfSharp.Pdf.IO;
 
 namespace PdfSharp.Pdf.Annotations
 {
@@ -36,6 +36,13 @@ namespace PdfSharp.Pdf.Annotations
             _linkType = LinkType.None;
             Elements.SetName(PdfAnnotation.Keys.Subtype, "/Link");
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PdfLinkAnnotation"/> class.
+        /// </summary>
+        /// <param name="dict"></param>
+        public PdfLinkAnnotation(PdfDictionary dict) : base(dict)
+        { }
 
         /// <summary>
         /// Creates a link within the current document.

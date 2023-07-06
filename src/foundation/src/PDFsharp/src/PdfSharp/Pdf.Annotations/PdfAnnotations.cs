@@ -88,10 +88,18 @@ namespace PdfSharp.Pdf.Annotations
                     Debug.Assert(item is PdfDictionary, "Dictionary expected.");
                     dict = (PdfDictionary)item;
                 }
-                var annotation = dict as PdfAnnotation;
-                if (annotation == null)
+                if (dict is not PdfAnnotation annotation)
                 {
-                    annotation = new PdfGenericAnnotation(dict);
+                    var subType = dict.Elements.GetString(PdfAnnotation.Keys.Subtype);
+                    annotation = subType switch
+                    {
+                        "/Square" => new PdfSquareAnnotation(dict),
+                        "/Link" => new PdfLinkAnnotation(dict),
+                        "/Text" => new PdfTextAnnotation(dict),
+                        "/Stamp" => new PdfRubberStampAnnotation(dict),
+                        "/Widget" => new PdfWidgetAnnotation(dict),
+                        _ => new PdfGenericAnnotation(dict),
+                    };
                     if (iref == null)
                         Elements[index] = annotation;
                 }

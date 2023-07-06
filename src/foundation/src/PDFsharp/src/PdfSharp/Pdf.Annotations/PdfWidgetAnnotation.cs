@@ -19,6 +19,9 @@ namespace PdfSharp.Pdf.Annotations
             Initialize();
         }
 
+        public PdfWidgetAnnotation(PdfDictionary dict) : base(dict)
+        { }
+
         void Initialize()
         {
             Elements.SetName(Keys.Subtype, "/Widget");
