@@ -2,7 +2,7 @@
 // See the LICENSE file in the solution root for more information.
 
 using MigraDoc.DocumentObjectModel.Internals;
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
 using PdfSharp.Logging;
 using FLOAT = System.Single;
 
@@ -27,7 +27,9 @@ namespace MigraDoc.DocumentObjectModel
         {
             if (argb == 0 && Capabilities.BackwardCompatibility.TreatArgbZeroAsEmptyColor)
             {
-                LogHost.Logger.ArgbValueIsConsideredEmptyColor(LogLevel.Information);
+#if DEBUG
+                //LogHost.Logger.ArgbValueIsConsideredEmptyColor(LogLevel.Information);
+#endif
                 this = Color.Empty;
                 return;
             }

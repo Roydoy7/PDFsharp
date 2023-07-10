@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
 using PdfSharp.Logging;
 using PdfSharp.Pdf.IO;
 
@@ -177,7 +177,7 @@ namespace PdfSharp.Pdf.Advanced
 #if DEBUG
                 if (_document == null)
                 {
-                    LogHost.Logger.LogDebug($"Document of object {_objectID} is null.");
+                    Debug.WriteLine($"Document of object {_objectID} is null.");
                 }
 #endif
                 return _document!;

@@ -3,9 +3,9 @@
 
 using System;
 using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
 using PdfSharp.Fonts;
-using PdfSharp.Logging;
+//using PdfSharp.Logging;
 
 namespace PdfSharp.Snippets.Font
 {
@@ -18,13 +18,15 @@ namespace PdfSharp.Snippets.Font
         public FontResolverInfo? ResolveTypeface(string familyName, bool isBold, bool isItalic)
         {
             string typefaceName = $"'{familyName}' {(isBold ? "bold" : "")} {(isItalic ? "italic" : "")}";
-            var logger = LogHost.CreateLogger<FailsafeFontResolver>();
+            //var logger = LogHost.CreateLogger<FailsafeFontResolver>();
 
             // Ask platform first.
             var result = PlatformFontResolver.ResolveTypeface(familyName, isBold, isItalic);
             if (result != null)
             {
-                logger.LogInformation($"{typefaceName} resolved by PlatformFontResolver.");
+#if DEBUG
+                Debug.WriteLine($"{typefaceName} resolved by PlatformFontResolver.");
+#endif
                 return result;
             }
 
@@ -32,7 +34,9 @@ namespace PdfSharp.Snippets.Font
             result = SegoeWpFontResolver.ResolveTypeface(familyName, isBold, isItalic);
             if (result != null)
             {
-                logger.LogInformation($"{typefaceName} resolved by SegoeWpFontResolver.");
+#if DEBUG
+                Debug.WriteLine($"{typefaceName} resolved by SegoeWpFontResolver.");
+#endif
                 return result;
             }
 
@@ -43,8 +47,10 @@ namespace PdfSharp.Snippets.Font
 
             Debug.Assert(result != null);
 
+#if DEBUG
             // No use of LoggerMessages here because this code is only for development.
-            logger.LogInformation($"{typefaceName} was substituted by a SegoeWP font.");
+            Debug.WriteLine($"{typefaceName} was substituted by a SegoeWP font.");
+#endif
 
             return result;
         }
@@ -58,8 +64,10 @@ namespace PdfSharp.Snippets.Font
         /// </returns>
         public byte[]? GetFont(string faceName)
         {
-            var logger = LogHost.CreateLogger<FailsafeFontResolver>();
-            logger.LogInformation($"Get font for '{faceName}'.");
+#if DEBUG
+            //var logger = LogHost.CreateLogger<FailsafeFontResolver>();
+            Debug.WriteLine($"Get font for '{faceName}'.");
+#endif
 
             // Note: PDFsharp never calls GetFont twice with the same face name.
             // Note: If a typeface is resolved by the PlatformFontResolver you never come here.

@@ -4,7 +4,7 @@
 #if WPF
 using System.IO;
 #endif
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
 using PdfSharp.Logging;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
@@ -119,7 +119,9 @@ namespace PdfSharp.Quality
             }
             catch (Exception ex)
             {
-                LogHost.Logger.LogError(ex, $"{nameof(ReadWritePdfDocument)} failed with file '{filename}'.");
+#if DEBUG
+                Debug.WriteLine(ex, $"{nameof(ReadWritePdfDocument)} failed with file '{filename}'.");
+#endif
                 throw;
             }
             return outFilename;

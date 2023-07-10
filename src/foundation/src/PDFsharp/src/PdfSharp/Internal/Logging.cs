@@ -1,7 +1,7 @@
 ﻿// PDFsharp - A .NET library for processing PDF
 // See the LICENSE file in the solution root for more information.
 
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
 
 
 namespace PdfSharp.Internal
@@ -14,7 +14,7 @@ namespace PdfSharp.Internal
         /// <summary>
         /// The dummy event.
         /// </summary>
-        public static EventId Dummy = new(0815, "Dummy event id");
+        //public static EventId Dummy = new(0815, "Dummy event id");
 
         // TODO Not yet used.
 

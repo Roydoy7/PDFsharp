@@ -9,7 +9,7 @@ using System.Drawing;
 using System.Windows;
 #endif
 using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
 using PdfSharp.Drawing;
 using PdfSharp.Fonts;
 using PdfSharp.Logging;
@@ -30,11 +30,16 @@ namespace PdfSharp.Internal
                     break;
 
                 case NotImplementedBehavior.Log:
-                    LogHost.CreateLogger<NotImplementedBehavior>().LogWarning(message);
+#if DEBUG
+                    Debug.WriteLine(message);
+#endif
                     break;
 
                 case NotImplementedBehavior.LogError:
-                    LogHost.CreateLogger<NotImplementedBehavior>().LogError(message);
+
+#if DEBUG
+                    Debug.WriteLine(message);
+#endif                    
                     break;
 
                 case NotImplementedBehavior.Throw:
