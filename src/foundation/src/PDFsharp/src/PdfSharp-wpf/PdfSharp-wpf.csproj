@@ -286,7 +286,7 @@
         <Compile Include="..\PdfSharp\Pdf.IO\ShiftStack.cs" Link="Pdf.IO\ShiftStack.cs" />
 		<Compile Include="..\PdfSharp\Pdf.Layers\PdfLayer.cs" Link="Pdf.Layers\PdfLayer.cs" />
 		<Compile Include="..\PdfSharp\Pdf.Layers\PdfLayers.cs" Link="Pdf.Layers\PdfLayers.cs" />
-		<Compile Include="..\PdfSharp\Pdf.Layers\PdfLayerEntry.cs" Link="Pdf.Layers\PdfLayerEntry.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Layers\PdfLayerConfig.cs" Link="Pdf.Layers\PdfLayerConfig.cs" />
         <Compile Include="..\PdfSharp\Pdf.Security\Encryption\PdfEncryptionBase.cs" Link="Pdf.Security\Encryption\PdfEncryptionBase.cs" />
         <Compile Include="..\PdfSharp\Pdf.Security\Encryption\PdfEncryptionV1To4.cs" Link="Pdf.Security\Encryption\PdfEncryptionV1To4.cs" />
         <Compile Include="..\PdfSharp\Pdf.Security\Encryption\PdfEncryptionV5.cs" Link="Pdf.Security\Encryption\PdfEncryptionV5.cs" />
@@ -300,6 +300,13 @@
         <Compile Include="..\PdfSharp\Pdf.Security\PdfSecurityHandler.cs" Link="Pdf.Security\PdfSecurityHandler.cs" />
         <Compile Include="..\PdfSharp\Pdf.Security\PdfSecuritySettings.cs" Link="Pdf.Security\PdfSecuritySettings.cs" />
         <Compile Include="..\PdfSharp\Pdf.Security\PdfStandardSecurityHandler.cs" Link="Pdf.Security\PdfStandardSecurityHandler.cs" />
+		<Compile Include="..\PdfSharp\Pdf.StreamContent\PdfStreamContainer.cs" Link="Pdf.Security\PdfStreamContainer.cs" />
+		<Compile Include="..\PdfSharp\Pdf.StreamContent\PdfStreamGraphicState.cs" Link="Pdf.Security\PdfStreamGraphicState.cs" />
+		<Compile Include="..\PdfSharp\Pdf.StreamContent\PdfStreamItem.cs" Link="Pdf.Security\PdfStreamItem.cs" />
+		<Compile Include="..\PdfSharp\Pdf.StreamContent\PdfStreamParser.cs" Link="Pdf.Security\PdfStreamParser.cs" />
+		<Compile Include="..\PdfSharp\Pdf.StreamContent\PdfStreamPath.cs" Link="Pdf.Security\PdfStreamPath.cs" />
+		<Compile Include="..\PdfSharp\Pdf.StreamContent\PdfStreamText.cs" Link="Pdf.Security\PdfStreamText.cs" />
+		<Compile Include="..\PdfSharp\Pdf.StreamContent\PdfStreamXObject.cs" Link="Pdf.Security\PdfStreamXObject.cs" />
         <Compile Include="..\PdfSharp\Pdf.Structure\PdfAttributesBase.cs" Link="Pdf.Structure\PdfAttributesBase.cs" />
         <Compile Include="..\PdfSharp\Pdf.Structure\PdfLayoutAttributes.cs" Link="Pdf.Structure\PdfLayoutAttributes.cs" />
         <Compile Include="..\PdfSharp\Pdf.Structure\PdfMarkedContentReference.cs" Link="Pdf.Structure\PdfMarkedContentReference.cs" />
