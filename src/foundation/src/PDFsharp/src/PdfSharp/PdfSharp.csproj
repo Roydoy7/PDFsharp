@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>11.0</LangVersion>
     <RootNamespace>PdfSharp</RootNamespace>
-    <DefineConstants>CORE;NET_ZIP</DefineConstants>
+    <DefineConstants>CORE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
