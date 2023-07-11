@@ -5,10 +5,10 @@
         /// <summary>
         /// Content of graphic state.
         /// </summary>
-        public string Content { get; set; }
+        public string? Content { get; set; }
         public override String ToString()
         {
-            return Content;
+            return Content == null ? string.Empty : Content;
         }
     }
 }

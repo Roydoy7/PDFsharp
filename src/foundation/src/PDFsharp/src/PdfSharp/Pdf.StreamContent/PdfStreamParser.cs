@@ -13,7 +13,6 @@ namespace PdfSharp.Pdf.StreamContent
         char _nextChar;
 
         readonly Dictionary<string, string> _textState = new();
-
         readonly Dictionary<string, string> _generalState = new();
 
         readonly Queue<string> _tokens = new();
@@ -23,8 +22,16 @@ namespace PdfSharp.Pdf.StreamContent
         readonly List<PdfStreamItem> _results = new();
         readonly Stack<PdfStreamContainer> _containers = new();
 
+        /// <summary>
+        /// Parse stream marked content into objects.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public List<PdfStreamItem> Parse(byte[] data)
         {
+            if (data == null)
+                throw new ArgumentNullException("data");
+
             _data = data;
             _idxChar = 0;
             _dataLen = data.Length;
@@ -34,15 +41,14 @@ namespace PdfSharp.Pdf.StreamContent
             return _results;
         }
 
+        /// <summary>
+        /// Parse stream marked content into objects.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public List<PdfStreamItem> Parse(string data)
         {
-            _data = PdfEncoders.RawEncoding.GetBytes(data);
-            _idxChar = 0;
-            _dataLen = data.Length;
-            _results.Clear();
-            _textState.Clear();
-            ParseToObjects();
-            return _results;
+            return Parse(PdfEncoders.RawEncoding.GetBytes(data));
         }
 
         void ParseToObjects()
@@ -143,7 +149,7 @@ namespace PdfSharp.Pdf.StreamContent
                     case "'":
                     case "\"":
                         {
-                            ModifyTextStateDict(str);                            
+                            ModifyTextStateDict(str);
                             break;
                         }
                     //Path painting
@@ -244,11 +250,22 @@ namespace PdfSharp.Pdf.StreamContent
             }
         }
 
+        /// <summary>
+        /// Convert stream objects to bytes.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public byte[] GetBytes(IEnumerable<PdfStreamItem> items)
         {
             return GetString(items).ToArray().Select(x => (byte)x).ToArray();
         }
 
+        /// <summary>
+        /// Convert stream objects to string.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public string GetString(IEnumerable<PdfStreamItem> items)
         {
             if (!items.Any())
@@ -306,7 +323,7 @@ namespace PdfSharp.Pdf.StreamContent
             var ts = new string[] { "Tj", "TJ", "'", "\"" };
             foreach (var t in ts)
             {
-                if(_textState.ContainsKey(t))
+                if (_textState.ContainsKey(t))
                     _textState.Remove(t);
             }
             _contents.Clear();

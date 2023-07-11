@@ -7,7 +7,7 @@ namespace PdfSharp.Pdf.StreamContent
         /// <summary>
         /// Marked content name, starts with a '/'.
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// Marked content property list.
         /// </summary>
@@ -16,6 +16,9 @@ namespace PdfSharp.Pdf.StreamContent
         public override String ToString()
         {
             if (Items.Count == 0)
+                return string.Empty;
+
+            if(string.IsNullOrEmpty(Name)) 
                 return string.Empty;
 
             var sb = new StringBuilder();
