@@ -9,7 +9,7 @@ namespace PdfSharp.Pdf.Annotations
     /// <summary>
     /// Represents a rubber stamp annotation.
     /// </summary>
-    public sealed class PdfRubberStampAnnotation : PdfAnnotation
+    public sealed class PdfRubberStampAnnotation : PdfMarkupAnnotation
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PdfRubberStampAnnotation"/> class.
@@ -72,7 +72,7 @@ namespace PdfSharp.Pdf.Annotations
         /// <summary>
         /// Predefined keys of this dictionary.
         /// </summary>
-        internal new class Keys : PdfAnnotation.Keys
+        internal new class Keys : PdfMarkupAnnotation.Keys
         {
             /// <summary>
             /// (Optional) The name of an icon to be used in displaying the annotation. Viewer

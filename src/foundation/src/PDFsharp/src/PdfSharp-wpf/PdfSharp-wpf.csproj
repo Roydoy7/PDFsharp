@@ -231,17 +231,20 @@
         <Compile Include="..\PdfSharp\Pdf.Advanced\PdfType1Font.cs" Link="Pdf.Advanced\PdfType1Font.cs" />
         <Compile Include="..\PdfSharp\Pdf.Advanced\PdfXObject.cs" Link="Pdf.Advanced\PdfXObject.cs" />
         <Compile Include="..\PdfSharp\Pdf.Advanced\PdfProperties.cs" Link="Pdf.Advanced\PdfProperties.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfAnnotationFlags.cs" Link="Pdf.Annotations\enums\PdfAnnotationFlags.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfRubberStampAnnotationIcon.cs" Link="Pdf.Annotations\enums\PdfRubberStampAnnotationIcon.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfTextAnnotationIcon.cs" Link="Pdf.Annotations\enums\PdfTextAnnotationIcon.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\PdfAnnotation.cs" Link="Pdf.Annotations\PdfAnnotation.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\PdfAnnotations.cs" Link="Pdf.Annotations\PdfAnnotations.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\PdfGenericAnnotation.cs" Link="Pdf.Annotations\PdfGenericAnnotation.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\PdfLinkAnnotation.cs" Link="Pdf.Annotations\PdfLinkAnnotation.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\PdfRubberStampAnnotation.cs" Link="Pdf.Annotations\PdfRubberStampAnnotation.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\PdfTextAnnotation.cs" Link="Pdf.Annotations\PdfTextAnnotation.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\PdfWidgetAnnotation.cs" Link="Pdf.Annotations\PdfWidgetAnnotation.cs" />
-        <Compile Include="..\PdfSharp\Pdf.Annotations\PdfSquareAnnotation.cs" Link="Pdf.Annotations\PdfSquareAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfAnnotationFlags.cs" Link="Pdf.Annotations\enums\PdfAnnotationFlags.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfRubberStampAnnotationIcon.cs" Link="Pdf.Annotations\enums\PdfRubberStampAnnotationIcon.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\enums\PdfTextAnnotationIcon.cs" Link="Pdf.Annotations\enums\PdfTextAnnotationIcon.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfAnnotation.cs" Link="Pdf.Annotations\PdfAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfAnnotations.cs" Link="Pdf.Annotations\PdfAnnotations.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfCaretAnnotation.cs" Link="Pdf.Annotations\PdfCaretAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfCircleAnnotation.cs" Link="Pdf.Annotations\PdfCircleAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfGenericAnnotation.cs" Link="Pdf.Annotations\PdfGenericAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfLinkAnnotation.cs" Link="Pdf.Annotations\PdfLinkAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfMarkupAnnotation.cs" Link="Pdf.Annotations\PdfMarkupAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfRubberStampAnnotation.cs" Link="Pdf.Annotations\PdfRubberStampAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfTextAnnotation.cs" Link="Pdf.Annotations\PdfTextAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfWidgetAnnotation.cs" Link="Pdf.Annotations\PdfWidgetAnnotation.cs" />
+		<Compile Include="..\PdfSharp\Pdf.Annotations\PdfSquareAnnotation.cs" Link="Pdf.Annotations\PdfSquareAnnotation.cs" />
         <Compile Include="..\PdfSharp\Pdf.Content.Objects\CObjects.cs" Link="Pdf.Content.Objects\CObjects.cs" />
         <Compile Include="..\PdfSharp\Pdf.Content.Objects\enum\OpCodeFlags.cs" Link="Pdf.Content.Objects\enum\OpCodeFlags.cs" />
         <Compile Include="..\PdfSharp\Pdf.Content.Objects\enum\OpCodeName.cs" Link="Pdf.Content.Objects\enum\OpCodeName.cs" />

@@ -34,6 +34,8 @@ namespace PdfSharp.Pdf.StreamContent
 
             _data = data;
             _idxChar = 0;
+            _forwardStack ??= new();
+            _forwardStack.Clear();
             _dataLen = data.Length;
             _results.Clear();
             _textState.Clear();
@@ -57,7 +59,6 @@ namespace PdfSharp.Pdf.StreamContent
             {
                 MoveUntilWhiteSpace();
                 var str = _token.ToString();
-
                 switch (str)
                 {
                     case "":
@@ -201,7 +202,7 @@ namespace PdfSharp.Pdf.StreamContent
                             }
                             break;
                         }
-                    case "BMC":
+                    case "BMC"://Begin marked content
                         {
                             if (_tokens.Count > 0)
                             {
@@ -214,7 +215,7 @@ namespace PdfSharp.Pdf.StreamContent
                             }
                             break;
                         }
-                    case "EMC":
+                    case "EMC"://End marked content
                         {
                             if (_containers.Count > 0)
                             {
@@ -351,7 +352,7 @@ namespace PdfSharp.Pdf.StreamContent
             return obj;
         }
 
-        int _forward;
+        Stack<char> _forwardStack;
         void MoveUntilWhiteSpace()
         {
             ScanNextChar(true);
@@ -367,7 +368,7 @@ namespace PdfSharp.Pdf.StreamContent
                         return;
                     case Chars.SP:
                         {
-                            if (_forward > 0)
+                            if(_forwardStack.Count > 0)
                             {
                                 _token.Append(_curChar);
                                 ScanNextChar(true);
@@ -379,7 +380,7 @@ namespace PdfSharp.Pdf.StreamContent
                     case '<':
                     case '[':
                         {
-                            _forward++;
+                            _forwardStack.Push(_curChar);
                             _token.Append(_curChar);
                             ScanNextChar(true);
                             break;
@@ -387,7 +388,12 @@ namespace PdfSharp.Pdf.StreamContent
                     case '>':
                     case ']':
                         {
-                            _forward--;
+                            if(_curChar == '>')
+                                while (_forwardStack.Pop() != '<') ;
+
+                            if (_curChar == ']')
+                                while (_forwardStack.Pop() != '[') ;
+
                             _token.Append(_curChar);
                             ScanNextChar(true);
                             break;
@@ -425,8 +431,12 @@ namespace PdfSharp.Pdf.StreamContent
                     {
                         // Treat CR LF as LF.
                         _curChar = _nextChar;
-                        _nextChar = (char)_data[_idxChar];
-                        _idxChar++;
+                        //Check if exceed the array range
+                        if (_idxChar < _dataLen)
+                        {
+                            _nextChar = (char)_data[_idxChar];
+                            _idxChar++;
+                        }
                     }
                     else
                     {

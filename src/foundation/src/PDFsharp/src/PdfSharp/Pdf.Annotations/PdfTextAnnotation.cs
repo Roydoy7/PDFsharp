@@ -8,7 +8,7 @@ namespace PdfSharp.Pdf.Annotations
     /// <summary>
     /// Represents a text annotation.
     /// </summary>
-    public sealed class PdfTextAnnotation : PdfAnnotation
+    public sealed class PdfTextAnnotation : PdfMarkupAnnotation
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PdfTextAnnotation"/> class.
@@ -90,7 +90,7 @@ namespace PdfSharp.Pdf.Annotations
         /// <summary>
         /// Predefined keys of this dictionary.
         /// </summary>
-        internal new class Keys : PdfAnnotation.Keys
+        internal new class Keys : PdfMarkupAnnotation.Keys
         {
             /// <summary>
             /// (Optional) A flag specifying whether the annotation should initially be displayed open.

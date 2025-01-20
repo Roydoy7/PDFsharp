@@ -94,6 +94,8 @@ namespace PdfSharp.Pdf.Annotations
                     annotation = subType switch
                     {
                         "/Square" => new PdfSquareAnnotation(dict),
+                        "/Circle" => new PdfCircleAnnotation(dict),
+                        "/Caret" => new PdfCaretAnnotation(dict),
                         "/Link" => new PdfLinkAnnotation(dict),
                         "/Text" => new PdfTextAnnotation(dict),
                         "/Stamp" => new PdfRubberStampAnnotation(dict),

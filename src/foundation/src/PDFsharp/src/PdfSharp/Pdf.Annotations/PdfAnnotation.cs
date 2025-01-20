@@ -127,23 +127,10 @@ namespace PdfSharp.Pdf.Annotations
             }
         }
 
-        /// <summary>
-        /// Gets or sets text representing a short description of the subject being
-        /// addressed by the annotation.
-        /// </summary>
-        public string Subject
-        {
-            get => Elements.GetString(Keys.Subj, true);
-            set
-            {
-                Elements.SetString(Keys.Subj, value);
-                Elements.SetDateTime(Keys.M, DateTime.Now);
-            }
-        }
 
         /// <summary>
         /// Gets or sets the text to be displayed for the annotation or, if this type of
-        /// annotation does not display text, an alternate description of the annotationís
+        /// annotation does not display text, an alternate description of the annotation's
         /// contents in human-readable form.
         /// </summary>
         public string Contents
@@ -214,6 +201,19 @@ namespace PdfSharp.Pdf.Annotations
         }
 
         /// <summary>
+        /// Gets or sets border of this annotation.
+        /// </summary>
+        public PdfArray Border
+        {
+            get => Elements.GetArray(Keys.Border);
+            set
+            {
+                Elements.SetArray(Keys.Border, value);
+                Elements.SetDateTime(Keys.M, DateTime.Now);
+            }
+        }
+
+        /// <summary>
         /// Predefined keys of this dictionary.
         /// </summary>
         public class Keys : KeysBase
@@ -242,9 +242,9 @@ namespace PdfSharp.Pdf.Annotations
 
             /// <summary>
             /// (Optional) Text to be displayed for the annotation or, if this type of annotation
-            /// does not display text, an alternate description of the annotationís contents
+            /// does not display text, an alternate description of the annotation's contents
             /// in human-readable form. In either case, this text is useful when
-            /// extracting the documentís contents in support of accessibility to users with
+            /// extracting the document's contents in support of accessibility to users with
             /// disabilities or for other purposes.
             /// </summary>
             [KeyInfo(KeyType.TextString | KeyType.Optional)]
@@ -276,7 +276,7 @@ namespace PdfSharp.Pdf.Annotations
 
             /// <summary>
             /// (Optional; PDF 1.2) A border style dictionary specifying the characteristics of
-            /// the annotationís border.
+            /// the annotation's border.
             /// </summary>
             [KeyInfo("1.2", KeyType.Dictionary | KeyType.Optional)]
             public const string BS = "/BS";
@@ -291,14 +291,14 @@ namespace PdfSharp.Pdf.Annotations
 
             /// <summary>
             /// (Required if the appearance dictionary AP contains one or more subdictionaries; PDF 1.2)
-            /// The annotationís appearance state, which selects the applicable appearance stream from 
+            /// The annotation's appearance state, which selects the applicable appearance stream from 
             /// an appearance subdictionary.
             /// </summary>
             [KeyInfo("1.2", KeyType.Dictionary | KeyType.Optional)]
             public const string AS = "/AS";
 
             /// <summary>
-            /// (Optional) An array specifying the characteristics of the annotationís border.
+            /// (Optional) An array specifying the characteristics of the annotation's border.
             /// The border is specified as a rounded rectangle.
             /// In PDF 1.0, the array consists of three numbers defining the horizontal corner 
             /// radius, vertical corner radius, and border width, all in default user space units.
@@ -319,8 +319,8 @@ namespace PdfSharp.Pdf.Annotations
             /// (Optional; PDF 1.1) An array of three numbers in the range 0.0 to 1.0, representing
             /// the components of a color in the DeviceRGB color space. This color is used for the
             /// following purposes:
-            /// ÅEThe background of the annotationís icon when closed
-            /// ÅEThe title bar of the annotationís pop-up window
+            /// ÅEThe background of the annotation's icon when closed
+            /// ÅEThe title bar of the annotation's pop-up window
             /// ÅEThe border of a link annotation
             /// </summary>
             [KeyInfo("1.1", KeyType.Array | KeyType.Optional)]
@@ -329,7 +329,7 @@ namespace PdfSharp.Pdf.Annotations
             // @PDF/UA
             /// <summary>
             /// (Required if the annotation is a structural content item; PDF 1.3)
-            /// The integer key of the annotationís entry in the structural parent tree.
+            /// The integer key of the annotation's entry in the structural parent tree.
             /// </summary>
             [KeyInfo("1.3", KeyType.Integer | KeyType.Optional)]
             public const string StructParent = "/StructParent";
