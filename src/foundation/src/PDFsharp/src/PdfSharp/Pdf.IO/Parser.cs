@@ -242,7 +242,16 @@ namespace PdfSharp.Pdf.IO
                 ReadStream(dict);
 #else
                 int length = GetStreamLength(dict!); // NRT HACK
-                byte[] bytes = _lexer.ReadStream(length);
+                byte[] bytes;
+                if (length > 0 )
+                {
+                    bytes = _lexer.ReadStream(length);
+                }
+                else
+                {
+                    bytes = _lexer.ReadStream();
+                    dict.Elements["/Length"] = new PdfInteger(bytes.Length);
+                }
 #if true_
                 if (dict.Elements.GetString("/Filter") == "/FlateDecode")
                 {
@@ -316,7 +325,9 @@ namespace PdfSharp.Pdf.IO
                 dict.Elements["/Length"] = new PdfInteger(len);
                 return len;
             }
-            throw new InvalidOperationException("Cannot retrieve stream length.");
+            //Returns 0 in case of the dictionary has no length info
+            return 0;
+            //throw new InvalidOperationException("Cannot retrieve stream length.");
         }
 
         public PdfArray ReadArray(PdfArray array, bool includeReferences)

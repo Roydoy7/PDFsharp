@@ -177,6 +177,52 @@ namespace PdfSharp.Pdf.IO
             return bytes;
         }
 
+        public byte[] ReadStream()
+        {
+            List<byte> byteList = new List<byte>();
+            int pos;
+
+            // Skip illegal blanks behind "stream".
+            while (_curChar == Chars.SP)
+                ScanNextChar(true);
+
+            // Skip new line behind "stream".
+            if (_curChar == Chars.CR)
+            {
+                if (_nextChar == Chars.LF)
+                    pos = _idxChar + 2;
+                else
+                    pos = _idxChar + 1;
+            }
+            else
+                pos = _idxChar + 1;
+
+            _pdfSteam.Position = pos;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = _pdfSteam.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, bytesRead);
+                    if (Encoding.ASCII.GetString(ms.ToArray()).Contains("endstream"))
+                        break;
+                }
+
+                byte[] data = ms.ToArray();
+                string content = Encoding.ASCII.GetString(data);
+                int endIndex = content.IndexOf("endstream");
+                if (endIndex != -1)
+                {
+                    data = data[..endIndex];
+                }
+
+                // Synchronize idxChar etc.
+                Position = pos + data.Length;
+                return data;
+            }
+        }
+
         /// <summary>
         /// Reads a string in raw encoding.
         /// </summary>

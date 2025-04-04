@@ -10,7 +10,7 @@ namespace PdfSharp.Tests
     {
         [Theory]
         //[InlineData(@"path to pdf", @"path to pdf")]
-        [InlineData(@"D:\Work\2024\5.22 計器リストジャンプ\計器リスト_R3.05_Rapidus千歳_Phase1-2_水処理棟.pdf", @"path to pdf")]
+        [InlineData(@"D:\Test\L-5498-001\publish_tmp.pdf", @"D:\Test\L-5498-001\publish.pdf")]
         public void Parse_stream_contents_test(string filePathSrc, string filePathDest)
         {
             //Remove this layer's contents

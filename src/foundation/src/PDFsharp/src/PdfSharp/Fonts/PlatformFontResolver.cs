@@ -446,18 +446,22 @@ namespace PdfSharp.Fonts
             if (isBold)
 #if NETSTANDARD
                 typefaces = typefaces.Where(f => f.TypefaceName.ToLower().Contains("bold") || f.TypefaceName.ToLower().Contains("heavy"));
+#elif NETFRAMEWORK
+                typefaces = typefaces.Where(f => f.TypefaceName.ToLower().Contains("bold") || f.TypefaceName.ToLower().Contains("heavy"));
 #else
                 typefaces = typefaces.Where(f => f.TypefaceName.Contains("bold", StringComparison.OrdinalIgnoreCase) || f.TypefaceName.Contains("heavy", StringComparison.OrdinalIgnoreCase));
 #endif
 
-            if (isItalic)
+                if (isItalic)
 #if NETSTANDARD
                 typefaces = typefaces.Where(f => f.TypefaceName.ToLower().Contains("italic") || f.TypefaceName.ToLower().Contains("oblique"));
+#elif NETFRAMEWORK
+                typefaces = typefaces.Where(f => f.TypefaceName.ToLower().Contains("italic") || f.TypefaceName.ToLower().Contains("oblique"));                
 #else
                 typefaces = typefaces.Where(f => f.TypefaceName.Contains("italic", StringComparison.OrdinalIgnoreCase) || f.TypefaceName.Contains("oblique", StringComparison.OrdinalIgnoreCase));
 #endif
 
-            var family = typefaces.FirstOrDefault();
+                var family = typefaces.FirstOrDefault();
             if (family is not null)
                 return new FontResolverInfo(family.FileName);
 
